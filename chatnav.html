@@ -209,6 +209,31 @@ hr {
 .radio-buttons label {
   margin-right: 15px;
 }
+/* new old add button */
+.select,
+        .button {
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+        }
+
+        .select:focus,
+        .button:focus {
+            outline: none;
+            border-color: #000080;
+            box-shadow: 0 0 0 2px rgba(0, 0, 128, 0.3);
+        }
+
+        .button {
+            background-color: #000080;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
 
 /* Bail Info Section */
 .bail-info {
@@ -357,6 +382,16 @@ hr {
   </div>
 
   <div class="form-container">
+    <div class="form-group"></div>
+      <label for="crimeCode" class="label">Crime/Indian Penal Code</label>
+      <select id="crimeCode" name="crimeCode" class="select">
+          <option value="">Select IPC</option>
+          <option value="302">302 - Murder</option>
+          <option value="376">376 - Rape</option>
+          <option value="420">420 - Cheating</option>
+      </select>
+  
+  <hr>
     <div class="form-row">
       <div>
         <h4>Area / Zone</h4>
@@ -417,6 +452,9 @@ hr {
         <!-- Add more rows as needed -->
       </tbody>
     </table>
+    <div class="form-group"></div>
+      <button type="button" class="button">Calculate Bail 🧮</button>
+    <hr>
     <div class="disclaimer-final">
       <h4>Disclaimer</h4>
       The Bail Reckoner app utilizes an AI-based prediction model to generate bail scores based on various IPC sections and crime details. Please note that while we strive for accuracy, the predictions provided may not always be 100% precise and should not be considered as definitive legal advice. Users are advised to consult legal professionals for final decisions.
