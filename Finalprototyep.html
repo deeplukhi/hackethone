@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bail Reckoner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Main Container for horizontal layout */
+        .main-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Left Section: Video and Description */
+        .left-section {
+            flex: 1;
+            margin-right: 10px;
+            margin-left: 50px;
+            margin-top: 40px;
+        }
+
+        .video-section {
+            text-align: center;
+        }
+
+        .description-section {
+            margin-top: 10px;
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+            background-color: #fafafa;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Right Section: Main Body */
+        .right-section {
+            flex: 1.5;
+        }
+
+        .form-container {
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: white;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .navbar-left h1 {
+            font-size: 22px;
+            margin-right: 750px;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-right a {
+            margin-left: 8px;
+            color: black;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .navbar-right i {
+            margin-left: 15px;
+        }
+
+        .separator {
+            height: 30px;
+            width: 1px;
+            background-color: #ccc;
+            margin: 0 15px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 10px 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .login-button,
+        .register-button {
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-button {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+        }
+
+        .register-button {
+            background-color: blue;
+            color: white;
+            border: none;
+            margin-left: 10px;
+        }
+
+        .register-button:hover {
+            background-color: darkblue;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Form Container Styles */
+        .form-container {
+            margin: 30px auto;
+            padding: 25px;
+            max-width: 700px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Headers and Text */
+        h4 {
+            margin-bottom: 12px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        input[type="text"],
+        select {
+            width: calc(100% - 22px);
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 25px 0;
+        }
+
+        /* Form Row Styles */
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row div {
+            flex: 1;
+        }
+
+        /* Gender Select */
+        .gender-select {
+            margin-bottom: 20px;
+        }
+
+        .gender-select label {
+            font-size: 16px;
+            margin-right: 15px;
+        }
+
+        /* Disclaimer Styles */
+        .disclaimer,
+        .disclaimer-final {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Crime Table Styles */
+        .crime-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .crime-table th,
+        .crime-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .crime-table th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+
+        .radio-buttons label {
+            margin-right: 15px;
+        }
+
+        /* new old add button */
+        .select,
+        .button {
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+        }
+
+        .select:focus,
+        .button:focus {
+            outline: none;
+            border-color: #000080;
+            box-shadow: 0 0 0 2px rgba(0, 0, 128, 0.3);
+        }
+
+        .button {
+            background-color: #000080;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+
+        /* Bail Info Section */
+        .bail-info {
+            margin-top: 30px;
+        }
+
+        .bail-info .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .grid {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .card {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .card-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Bail Score Section */
+        .bail-score {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .bail-score .title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        /* IPC Breakdown Section */
+        .ipc-breakdown {
+            margin-top: 20px;
+        }
+
+        .ipc-breakdown textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Document Requirement Section */
+        .document-box {
+            margin-top: 20px;
+        }
+
+        .document-box ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .document-box li {
+            background-color: #fafafa;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="navbar-left">
+            <h1>Bail Reckoner</h1>
+        </div>
+        <div class="navbar-right">
+            <i class="fa-solid fa-phone"></i>
+            <a href="#">Call Us</a>
+            <div class="separator"></div>
+            <div class="dropdown">
+                <i class="fa-solid fa-earth-americas"></i>
+                <a href="#">English</a>
+                <div class="dropdown-content">
+                    <a href="#">English</a>
+                    <a href="#">Gujarati</a>
+                    <a href="#">Hindi</a>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <button class="login-button">Login</button>
+            <button class="register-button">Register</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Left Section: Video and Description -->
+        <div class="left-section">
+            <div class="video-section">
+                <iframe src="https://www.youtube.com/embed/Z-fD8lP9w4s" allowfullscreen></iframe>
+            </div>
+            <div class="description-section">
+                <p>Welcome to the Bail Reckoner app! Our app helps users predict bail eligibility based on various IPC
+                    sections and crime details...</p>
+                <p><strong>Welcome to the Bail Prediction Website!</strong> Here’s a simple guide to help you use the
+                    site effectively.</p>
+
+                <p><strong>Step 1: Watch the Tutorial (Optional)</strong><br>
+                    On the left side of the page, there’s a video tutorial explaining how to use the site. You can watch
+                    it if you need help.</p>
+
+                <p><strong>Step 2: Fill Out the Bail Form</strong><br>
+                    On the right side, you will find the bail form. Follow these steps to complete it:</p>
+                <ul>
+                    <li><strong>Select Crime/IPC Section:</strong> <br>Choose the crime or IPC code (e.g., IPC 302 for
+                        Murder) from the dropdown list.</li>
+                    <li><strong>Enter Area and Pincode:</strong><br> Type the area/zone and pincode where the crime
+                        occurred.</li>
+                    <li><strong>Enter Personal Information:</strong><br> Add your caste (if required), age, and select
+                        your gender (Male, Female, or Other).</li>
+                    <li><strong>Optional: Past Crime Information:</strong> <br>If applicable, enter details about any
+                        past crimes, such as IPC code, area, bail status, and imprisonment duration.</li>
+                </ul>
+
+                <p><strong>Step 3: Check Your Bail</strong><br>
+                    Once the form is complete, click the <strong>Check Bail</strong> button to receive your bail
+                    prediction.</p>
+
+                <p><strong>Step 4: Review the Bail Prediction Results</strong><br>
+                    You will see the following details in your results:</p>
+                <ul>
+                    <li><strong>Bail Amount:</strong><br> The predicted bail amount you may have to pay (e.g., ₹50,000).
+                    </li>
+                    <li><strong>Bail Duration:</strong><br> How long the bail is expected to last.</li>
+                    <li><strong>Bail Score:</strong><br> A score that shows how likely you are to get bail based on the
+                        information provided.</li>
+                </ul>
+
+
+            </div>
+        </div>
+
+        <!-- Right Section: Main Body -->
+        <div class="right-section">
+            <div class="form-container">
+                <label for="crimeCode" class="label">Crime/Indian Penal Code</label>
+                <select id="crimeCode" name="crimeCode" class="select">
+                    <option value="">Select IPC</option>
+                    <option value="302">302 - Murder</option>
+                    <option value="376">376 - Rape</option>
+                    <option value="420">420 - Cheating</option>
+                </select>
+                <hr>
+                <div class="form-row">
+                    <div>
+                        <h4>Area / Zone</h4>
+                        <input type="text" name="state" placeholder="Enter your area/Zone">
+                    </div>
+                    <div>
+                        <h4>Pincode</h4>
+                        <input type="text" placeholder="Enter your pincode">
+                    </div>
+                </div>
+                <hr>
+
+                <div class="form-row">
+                    <div>
+                        <h4>Caste</h4>
+                        <input type="text" placeholder="Enter your caste">
+                    </div>
+                    <div>
+                        <h4>Age</h4>
+                        <input type="text" placeholder="Enter your age">
+                    </div>
+                </div>
+                <div class="gender-select">
+                    <h4>Gender</h4>
+                    <label><input type="radio" name="gender" value="male"> Male</label>
+                    <label><input type="radio" name="gender" value="female"> Female</label>
+                    <label><input type="radio" name="gender" value="other"> Other</label>
+                </div>
+
+                <hr>
+
+                <h4>Past Crime (Optional)</h4>
+                <div class="disclaimer">
+                    * Providing past crime information will help improve the accuracy of bail eligibility.
+                </div>
+
+                <table class="crime-table">
+                    <thead>
+                        <tr>
+                            <th>IPC</th>
+                            <th>Area / Zone</th>
+                            <th>Was Bail Given Last Time?</th>
+                            <th>Duration of Prisoner (in months)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" placeholder="Enter IPC code"></td>
+                            <td><input type="text" placeholder="Enter Area/Zone"></td>
+                            <td class="radio-buttons">
+                                <label><input type="radio" name="bail_last_time" value="yes"> Yes</label>
+                                <label><input type="radio" name="bail_last_time" value="no"> No</label>
+                            </td>
+                            <td><input type="text" placeholder="Duration (months)"></td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+                <div class="form-group"></div>
+                <button type="button" class="button">Chack Bail 🧮</button>
+                <div class="disclaimer-final">
+                    <h4>Disclaimer</h4>
+                    The Bail Reckoner app utilizes an AI-based prediction model to generate bail scores based on various
+                    IPC sections
+                    and crime details. Please note that while we strive for accuracy, the predictions provided may not
+                    always be 100%
+                    precise and should not be considered as definitive legal advice. Users are advised to consult legal
+                    professionals
+                    for final decisions.
+                    <br><br>
+                    Additionally, we prioritize your privacy and security. Any information you provide is collected
+                    solely for the
+                    purpose of generating accurate predictions and ensuring security. All data is securely stored and
+                    protected
+                    against unauthorized access.
+                </div>
+
+                <hr>
+
+                <!-- Bail Information Section -->
+                <div class="bail-info">
+                    <h3 class="title">Bail Information</h3>
+                    <div class="grid">
+                        <div class="card">
+                            <div class="card-title">Bail Amount</div>
+                            <div class="card-value">₹50,000</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Duration</div>
+                            <div class="card-value">30 days</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bail Score Section -->
+                <div class="bail-score">
+                    <h3 class="title">Bail Score</h3>
+                    <div class="score">75%</div>
+                    <p>Estimated chance of getting bail</p>
+                </div>
+                <!-- IPC Breakdown Section -->
+                <div class="ipc-breakdown">
+                    <h4>IPC Breakdown</h4>
+                    <textarea id="ipcDescription"
+                        placeholder="The breakdown of the IPC section will be displayed here..."></textarea>
+                </div>
+
+                <!-- Document Requirement Section -->
+                <div class="document-box">
+                    <h4>Documents Required for Bail</h4>
+                    <ul>
+                        <li>Surety Bonds</li>
+                        <li>Aadhar Card</li>
+                        <li>FIR ID</li>
+                        <li>Bail Document</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+</body>
+</div>
+</div>
+<!-- Footer Section -->
+<div class="footer">
+    &copy; 2024 Bail Reckoner. All rights reserved. | <a href="#" style="color: #fff; text-decoration: none;">Privacy
+        Policy</a> | <a href="#" style="color: #fff; text-decoration: none;">Terms of Service</a>
+</div>
+
+
+</body>
+
+</html>
